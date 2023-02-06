@@ -1,37 +1,52 @@
 import { signOut } from "firebase/auth";
-import React from "react";
-
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
+  const [nav, setNav] = useState(false);
 
+  const handleNav = () => {
+    setNav(!nav);
+  };
   return (
-    <nav
-      className={`h-14 fixed w-full z-[999] ${
-        pathname === "/" ? null : "bg-white"
-      }`}
-    >
-      <ul className='max-w-7xl mx-auto flex gap-3 h-full items-center'>
-        <li className='flex-auto font-semibold text-2xl'>
-          <Link to='/'>JobBox</Link>
+    <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 ">
+      <h1 className="w-full text-3xl font-bold text-[#00df9a]">JobBox</h1>
+      <ul className="hidden md:flex justify-around items-center">
+        <li className="p-4">
+          <Link to={"/"}>Home</Link>
         </li>
-        <li>
-          <Link className='hover:text-primary' to='/jobs'>
-            Jobs
-          </Link>
+        <li className="p-4">
+          <button className="">
+            <Link to={"/dashboard"}>Started</Link>
+          </button>
         </li>
-
-        <li>
-          <Link
-            className='border border-black px-2 py-1 rounded-full hover:border-primary hover:text-white hover:bg-primary hover:px-4 transition-all '
-            to='/login'
-          >
-            Login
-          </Link>
+        <li className="p-4">
+          <Link to={"/login"}>Login</Link>
         </li>
       </ul>
-    </nav>
+      <div onClick={handleNav} className="block md:hidden">
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+      </div>
+      <ul
+        className={
+          nav
+            ? "fixed left-0 top-0 w-[60%] h-full border-r bg-gray-300 ease-in-out duration-500"
+            : "ease-in-out duration-500 fixed left-[-100%]"
+        }
+      >
+        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">JobBox</h1>
+        <li className="p-4">
+          <Link to={"/"}>Home</Link>
+        </li>
+        <li className="p-4">
+          <Link to={"/login"}>Login</Link>
+        </li>
+        <li className="p-4">
+          <Link to={"/dashboard"}>Get Started</Link>
+        </li>
+      </ul>
+    </div>
   );
 };
 

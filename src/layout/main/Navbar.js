@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.config";
 import { logout } from "../../pages/features/auth/authSlice";
 
-
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { email } = useSelector((state) => state.auth);
+  const { email, role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const handleNav = () => {
     setNav(!nav);
@@ -28,11 +27,21 @@ const Navbar = () => {
         <li className="p-4">
           <Link to={"/"}>Home</Link>
         </li>
-        <li className="p-4">
-          <button className=" ">
-            <Link to={"/dashboard"}>Started</Link>
-          </button>
-        </li>
+
+        {email && role && (
+          <li className="p-4">
+            <button className=" ">
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </button>
+          </li>
+        )}
+        {email && !role && (
+          <li className="p-4">
+            <button className=" ">
+              <Link to={"/register"}>Register</Link>
+            </button>
+          </li>
+        )}
         {email ? (
           <button onClick={handleSignOut} className="btn btn-sm">
             Logout
@@ -66,6 +75,20 @@ const Navbar = () => {
         ) : (
           <li className="p-4">
             <Link to={"/login"}>Login</Link>
+          </li>
+        )}
+        {email && role && (
+          <li className="p-4">
+            <button className=" ">
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </button>
+          </li>
+        )}
+        {email && !role && (
+          <li className="p-4">
+            <button className=" ">
+              <Link to={"/register"}>Register</Link>
+            </button>
           </li>
         )}
         <li className="p-4">

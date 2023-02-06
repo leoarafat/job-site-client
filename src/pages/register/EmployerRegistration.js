@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
+import { useRegisterMutation } from "../features/auth/authApi";
 
 const EmployerRegistration = () => {
   const [countries, setCountries] = useState([]);
@@ -9,6 +10,8 @@ const EmployerRegistration = () => {
   const { handleSubmit, register, control } = useForm();
   const term = useWatch({ control, name: "term" });
   const navigate = useNavigate();
+  const [postRegister, {isLoading, isError, error}] = useRegisterMutation()
+
 
   const businessCategory = [
     "Automotive",
@@ -41,6 +44,7 @@ const EmployerRegistration = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    postRegister({...data, role: 'employer'})
   };
 
   return (

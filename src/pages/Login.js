@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/login.svg";
-import { loginUser } from "./features/auth/authSlice";
+import { googleLogin, loginUser } from "./features/auth/authSlice";
 
 const Login = () => {
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isLoading, email, isError } = useSelector((state) => state.auth);
+  const { isLoading, email, isError, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!isLoading && email) {
@@ -24,7 +24,14 @@ const Login = () => {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
   };
-
+const handleGoogleLogin = () =>{
+  dispatch(googleLogin())
+}
+useEffect(()=>{
+  if(isError){
+    toast.error(error)
+  }
+},[error, isError])
   return (
     <div className="flex h-screen items-center">
       <div className="w-1/2">
@@ -58,6 +65,7 @@ const Login = () => {
                 />
               </div>
               <div className="relative !mt-8">
+              
                 <button
                   type="submit"
                   className="font-bold text-white py-3 rounded-full bg-primary w-full"
@@ -75,6 +83,13 @@ const Login = () => {
                     Sign up
                   </span>
                 </p>
+                <button
+                onClick={handleGoogleLogin}
+                  type="submit"
+                  className="font-bold text-white py-3 rounded-full bg-primary w-full"
+                >
+                  Login With Google
+                </button>
               </div>
             </div>
           </form>

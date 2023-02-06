@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import loginImage from "../assets/login.svg";
 import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createUser } from "./features/auth/authSlice";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createUser, googleLogin } from "./features/auth/authSlice";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
-
-
   const { handleSubmit, register, reset, control } = useForm();
   const password = useWatch({ control, name: "password" });
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
+  const { isLoading, email, isError, error } = useSelector(
+    (state) => state.auth
+  );
+
   useEffect(() => {
     if (
       password !== undefined &&
@@ -34,8 +36,14 @@ const Signup = () => {
     dispatch(createUser({ email: data?.email, password: data?.password }));
   };
 
- 
-
+  const handleGoogleLogin = () => {
+    dispatch(googleLogin());
+  };
+  useEffect(() => {
+    if (isError) {
+      toast.error(error);
+    }
+  }, [error, isError]);
   return (
     <div className="flex h-screen items-center pt-14">
       <div className="w-1/2">
@@ -51,7 +59,7 @@ const Signup = () => {
                   Email
                 </label>
                 <input
-                className="p-2 rounded-md"
+                  className="p-2 rounded-md"
                   type="email"
                   name="email"
                   id="email"
@@ -64,7 +72,7 @@ const Signup = () => {
                   Password
                 </label>
                 <input
-                className="p-2 rounded-md"
+                  className="p-2 rounded-md"
                   type="password"
                   name="password"
                   id="password"
@@ -76,7 +84,7 @@ const Signup = () => {
                   Confirm Password
                 </label>
                 <input
-                className="p-2 rounded-md"
+                  className="p-2 rounded-md"
                   type="password"
                   id="confirm-password"
                   {...register("confirmPassword")}
@@ -101,6 +109,13 @@ const Signup = () => {
                     Login
                   </span>
                 </p>
+                <button
+                  onClick={handleGoogleLogin}
+                  type="submit"
+                  className="font-bold text-white py-3 rounded-full bg-primary w-full disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  Sign up
+                </button>
               </div>
             </div>
           </form>

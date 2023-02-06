@@ -1,14 +1,26 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase/firebase.config";
+import { logout } from "../../pages/features/auth/authSlice";
+
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-
+  const { email } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      dispatch(logout());
+    });
+  };
+
   return (
     <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 ">
       <h1 className="w-full text-3xl font-bold text-[#00df9a]">JobBox</h1>
@@ -17,13 +29,21 @@ const Navbar = () => {
           <Link to={"/"}>Home</Link>
         </li>
         <li className="p-4">
-          <button className="">
+          <button className=" ">
             <Link to={"/dashboard"}>Started</Link>
           </button>
         </li>
-        <li className="p-4">
-          <Link to={"/login"}>Login</Link>
-        </li>
+        {email ? (
+          <button onClick={handleSignOut} className="btn btn-sm">
+            Logout
+          </button>
+        ) : (
+          <li className="p-4">
+            <Link className="btn btn-sm" to={"/login"}>
+              Login
+            </Link>
+          </li>
+        )}
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -39,9 +59,15 @@ const Navbar = () => {
         <li className="p-4">
           <Link to={"/"}>Home</Link>
         </li>
-        <li className="p-4">
-          <Link to={"/login"}>Login</Link>
-        </li>
+        {email ? (
+          <button onClick={handleSignOut} className="btn btn-sm">
+            Logout
+          </button>
+        ) : (
+          <li className="p-4">
+            <Link to={"/login"}>Login</Link>
+          </li>
+        )}
         <li className="p-4">
           <Link to={"/dashboard"}>Get Started</Link>
         </li>

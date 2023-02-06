@@ -11,6 +11,7 @@ import PrivateRoute from "../utils/PrivateRoute";
 import AddJob from "../pages/employeeDashboard/AddJob";
 import EmployerDashboard from "../pages/employeeDashboard/EmployerDashboard";
 import CandidateDashboard from "../pages/candidateDashboard/CandidateDashboard";
+import DashboardLayout from "../layout/dashboard/DashboardLayout";
 
 const routes = createBrowserRouter([
   {
@@ -59,7 +60,8 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <Dashboard />
+        {/* <Dashboard /> */}
+        <DashboardLayout/>
       </PrivateRoute>
     ),
     children: [

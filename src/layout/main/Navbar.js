@@ -8,8 +8,9 @@ import { logout } from "../../pages/features/auth/authSlice";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { email, role } = useSelector((state) => state.auth);
+  const { user: {email, role} } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  
   const handleNav = () => {
     setNav(!nav);
   };
@@ -25,7 +26,7 @@ const Navbar = () => {
       <h1 className="w-full text-3xl font-bold text-[#00df9a]">JobBox</h1>
       <ul className="hidden md:flex justify-around items-center">
         <li className="p-4">
-          <Link to={"/"}>Home</Link>
+          <Link to={"/jobs"}>Jobs</Link>
         </li>
 
         {email && role && (
@@ -38,7 +39,7 @@ const Navbar = () => {
         {email && !role && (
           <li className="p-4">
             <button className=" ">
-              <Link to={"/register"}>Register</Link>
+              <Link to={"/register"}>Started</Link>
             </button>
           </li>
         )}
@@ -66,7 +67,7 @@ const Navbar = () => {
       >
         <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">JobBox</h1>
         <li className="p-4">
-          <Link to={"/"}>Home</Link>
+          <Link to={"/jobs"}>Jobs</Link>
         </li>
         {email ? (
           <button onClick={handleSignOut} className="btn btn-sm">

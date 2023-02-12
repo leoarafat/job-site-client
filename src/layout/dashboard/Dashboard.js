@@ -19,8 +19,9 @@
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineHome } from "react-icons/ai";
 import { SiAmazonpay } from "react-icons/si";
+import { TbFileSearch } from "react-icons/tb";
 import { MdOutlineEventAvailable } from "react-icons/md";
-import { AiOutlineSchedule, AiOutlineTeam } from "react-icons/ai";
+import { FcAddDatabase } from "react-icons/fc";
 import { Link, Outlet } from "react-router-dom";
 
 
@@ -56,10 +57,10 @@ const Dashboard = () => {
                       className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-primary  hover:text-white border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
                     >
                       <span className="inline-flex justify-center items-center ml-4">
-                        <AiOutlineSchedule size={"1.25rem"}></AiOutlineSchedule>
+                        <FcAddDatabase size={"1.25rem"}></FcAddDatabase>
                       </span>
                       <span className="ml-2 text-sm tracking-wide truncate">
-                        Add Jon
+                        Add Job
                       </span>
                     </Link>
                   </li>
@@ -80,14 +81,14 @@ const Dashboard = () => {
                   </li>
                   <li>
                     <Link
-                      to="/dashboard/team"
+                      to="/jobs"
                       className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-primary  hover:text-white border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
                     >
                       <span className="inline-flex justify-center items-center ml-4">
-                        <AiOutlineTeam size={"1.25rem"}></AiOutlineTeam>
+                        <TbFileSearch size={"1.25rem"}></TbFileSearch>
                       </span>
                       <span className="ml-2 text-sm tracking-wide truncate">
-                        My Team
+                        Jobs
                       </span>
                     </Link>
                   </li>

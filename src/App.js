@@ -2,8 +2,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { RouterProvider } from "react-router-dom";
+
 import { auth } from "./firebase/firebase.config";
-import { setUser, toggleLoading } from "./pages/features/auth/authSlice";
+import { getUser, toggleLoading } from "./pages/features/auth/authSlice";
 import routes from "./routes/routes";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       // console.log(user)
       if (user) {
-        dispatch(setUser(user?.email));
+        dispatch(getUser(user?.email));
       } else {
         dispatch(toggleLoading());
       }

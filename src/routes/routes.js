@@ -12,6 +12,8 @@ import AddJob from "../pages/employeeDashboard/AddJob";
 import EmployerDashboard from "../pages/employeeDashboard/EmployerDashboard";
 import CandidateDashboard from "../pages/candidateDashboard/CandidateDashboard";
 import DashboardLayout from "../layout/dashboard/DashboardLayout";
+import InputBox from "../pages/videoChat/InputBox";
+import Room from "../pages/videoChat/Room";
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +29,7 @@ const routes = createBrowserRouter([
         element: <Jobs />,
       },
       {
-        path: "/job-details/:id",
+        path: "/jobDetails/:id",
         element: <JobDetails />,
       },
       {
@@ -38,6 +40,7 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+     
       {
         path: "/register",
         element: (

@@ -1,4 +1,7 @@
+
+import { onAuthStateChanged } from "firebase/auth";
 import apiSlice from "../api/apiSlice";
+import { getUser } from "./authSlice";
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,6 +11,14 @@ const authApi = apiSlice.injectEndpoints({
         url: "/user",
         body: data,
       }),
+      async onAuthStateChanged(data, { dispatch, queryFulFiled }) {
+        try {
+          const res = await queryFulFiled;
+          dispatch(getUser(data?.email));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
   }),
 });

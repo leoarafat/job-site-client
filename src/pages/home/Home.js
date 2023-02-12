@@ -1,4 +1,5 @@
 import React from "react";
+import InputBox from "../videoChat/InputBox";
 import Analytics from "./Analytics";
 import Cards from "./Cards";
 import Footer from "./Footer";
@@ -10,6 +11,7 @@ import Newsletter from "./Newsletter";
 const Home = () => {
   return (
     <div>
+      {/* <InputBox/> */}
       <Hero/>
       <Analytics/>
       <Newsletter/>
